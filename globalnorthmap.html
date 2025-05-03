@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Globalization Impact Map</title>
+    <style>
+body {
+    font-family: 'Poppins', sans-serif; /* Changed to Georgia, serif */
+	font-style: italic;
+    margin: 0;
+   
+    color: #333;
+}
+.main-content {
+    background:;
+ /* You can replace with any color you prefer */
+    padding: 20px 0;
+	background-image: url('global.webp');  /* Set your image here */
+    background-size: cover;  /* Ensures the image covers the entire header */
+    background-position: center;  /* Centers the image */
+    background-attachment: fixed;
+	 position: relative; /* This is required for ::before to align correctly */
+    z-index: 1;
+       
+		
+}
+.main-content::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+   inset: 0; /* shorthand for top: 0; right: 0; bottom: 0; left: 0 */
+    background: rgba(0, 0, 0, 0.4); /* Dark gray overlay, same as header/footer */
+    z-index: -1; /* Push it behind the content */
+}
+
+
+
+        header {
+          background-image: url('global.webp');  /* Set your image here */
+    background-size: cover;  /* Ensures the image covers the entire header */
+    background-position: center;  /* Centers the image */
+    background-attachment: fixed;
+       
+		
+		color:  #f0f8ff;
+            padding: 0.1em;
+            text-align: center;
+			font-family: 'Georgia', serif;
+
+
+
+
+    
+    font-style: italic; /* Makes the text italic */
+			
+        }header h1 {
+		font-size: 40px;
+		margin-bottom: 0.2em; /* or try 0, 0.1em, etc. */
+		 color: #9e8b9d;
+    -webkit-text-stroke: 0.5px #dee6e6; /* Black outline */
+    text-stroke: 0.9px #9e8b9ds; 
+		}
+		header p {
+    margin-top: 0px;
+	font-size: 18px;
+	 color: #9e8b9d;
+    -webkit-text-stroke: 0.3px #dee6e6; /* Black outline */
+    text-stroke: 9px #ccbccc; 
+}
+        #map {
+            width: 100%;
+            height: 400px;
+            margin: 20px 0;
+        }
+       #info {
+    padding: 20px;
+    background:#dfd7dc;
+    border-radius: 10px;
+    margin: 20px;
+	margin-bottom: 1px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    border-left: 5px solid #0083b0;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+		
+		
+		#info p{
+		margin-bottom:15px;
+		
+		}
+       h2 {
+	   font-size:32px;
+	   margin-top:5px;
+	   margin-bottom:20px;
+    color: #9e8b9d;
+    -webkit-text-stroke: 0.5px #dee6e6; /* Black outline */
+    text-stroke: 0.9px #9e8b9d;         /* Fallback for other browsers */
+	
+}
+
+
+        footer {
+            text-align: center;
+            padding: 1em;
+            background-image: url('global.webp');  /* Set your image here */
+    background-size: cover;  /* Ensures the image covers the entire header */
+    background-position: center;  /* Centers the image */
+    background-attachment: fixed;
+	font-size: 18px
+	opacity: 1;
+           
+		
+          color: #9e8b9d;
+    -webkit-text-stroke: 0.3px #dee6e6; /* Black outline */
+    text-stroke: 0.9px #ccbccc; 
+			font-family: 'Georgia', serif;
+        }
+		#info-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-left: 5px solid #0083b0;
+    padding: 15px;
+   background: #f0f8ff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+    animation: fadeIn 0.3s ease-in-out;
+}header, footer {
+    position: relative;
+    z-index: 1;
+    color: #9e8b9d; /* Ensures text stays readable */
+    overflow: hidden; /* Contains the pseudo-element */
+	opacity: 1;
+}
+
+header::before,
+footer::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Dark gray overlay */
+    z-index: -1; /* Push behind the content */
+	 color: #9e8b9d;
+    -webkit-text-stroke: 0.3px #dee6e6; /* Black outline */
+    text-stroke: 0.2px #ccbccc; 
+	
+}
+
+#info-box h2 {
+    margin-top: 0;
+	margin-bottom: -10px;
+        color: #9e8b9d;
+    -webkit-text-stroke: 0.5px #dee6e6; /* Black outline */
+    text-stroke: 0.9px #9e8b9d;         
+}
+
+#info-box p {
+    margin: 10px 0;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+/* Add extra space specifically after the first paragraph */
+#info-box p:first-of-type {
+    margin-bottom: -10px; /* Adjust this value as needed */
+}
+
+
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+#back-link {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    background: #f3f1eb;
+    border-left: 5px solid #0083b0;
+    padding: 8px 14px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    font-family: 'Georgia', serif;
+    z-index: 10;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+#back-link a {
+    text-decoration: none;
+    font-size: 16px;
+    color: #9e8b9d;
+    -webkit-text-stroke: 0.3px #dee6e6;
+    text-stroke: 1px #9e8b9d;
+}
+
+#back-link a:hover {
+    text-decoration: underline;
+}
+
+
+
+
+		
+    </style>
+
+    <!-- Include the leaflet.js and leaflet.css for interactive maps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <!-- Include a world geoJSON for country shapes -->
+    <script src="https://unpkg.com/leaflet-geoman-free@2.9.0/dist/leaflet-geoman.min.js"></script>
+</head>
+
+<body>
+
+<body>
+
+<header>
+<div id="back-link">
+    <a href="index.html">← Go Back</a>
+</div>
+
+    <h1>🌍 Global North Impact Map</h1>
+    <p>Click a country to explore a brief description about that country and its impact on globalization!</p>
+	
+
+</header>
+
+<!-- Added wrapper for main content -->
+<div class="main-content">
+    <div id="map"></div>
+
+    <div id="info">
+        <h2>Country Information</h2>
+        <p>Select a country on the map to see details.</p>
+    </div>
+</div>
+
+<footer>
+    <p>© 2025 Global Impact Explorer | Connecting the World</p>
+</footer>
+
+<script>
+    // Initialize map
+    var map = L.map('map', {
+        center: [20, 0],
+        zoom: 2,
+        minZoom: 2,
+        maxZoom: 4,
+        worldCopyJump: false,
+        maxBounds: [
+            [-90, -180], // South-west corner (latitude, longitude)
+            [90, 180]    // North-east corner (latitude, longitude)
+        ],
+        maxBoundsViscosity: 1.0  // Prevent scrolling past the boundaries
+    });
+
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 5,
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    // Basic country info (example, can expand with real data)
+   const countryData = {
+    "United States": {
+        description: "<br>- The United States is a federal republic composed of 50 states, located primarily in North America. <br>- It is the world’s largest economy by nominal GDP, a global military superpower, and a leading force in global politics, culture, finance, and innovation. <br>- With a population of over 330 million, the U.S. maintains high standards of living, technological development, and political influence.",      
+impact: "<br>- Economic Powerhouse: The U.S. dollar is the world’s primary reserve currency. Home to multinational giants like Apple, Microsoft, Amazon, Google, and Coca-Cola. Major player in global trade agreements (e.g., USMCA, WTO). Leader in foreign direct investment and global financial markets (Wall Street). <br>- Technological Innovation: Silicon Valley is the epicenter of global tech innovation, shaping communication, software, hardware, and AI. Sets digital standards adopted worldwide. <br>- Cultural Influence: Dominates global media (Netflix, Disney, YouTube). Pop culture, music, and fashion influence global youth and lifestyles. Promotes English as the global lingua franca. <br>- Education & Research: Hosts many of the world’s top universities (Harvard, MIT, Stanford). Leading contributor to academic publications and scientific research. <br>- Military & Political Leadership: Permanent member of the UN Security Council and a major force in NATO. Plays a key role in international diplomacy, global security, and policy-making. <br>- Environmental & Social Impact: Influences climate change policy, although inconsistently. Drives global discussions on freedom of speech, democracy, and human rights."
+    },
+    "China": {
+        description: "<br>- China is the world’s most populous country (over 1.4 billion people) and the second-largest economy globally, located in East Asia. <br>- It is governed by the Chinese Communist Party under a one-party system, with a hybrid model of state-led capitalism. <br>- China has rapidly transformed from a largely agrarian society to a major global industrial and technological powerhouse in just a few decades.",
+        impact: "<br>- Manufacturing Powerhouse (World’s Factory): China produces a vast share of the world’s consumer goods, electronics, textiles, and machinery. It is central to global supply chains and exports products worldwide at an enormous scale.<br>- Foreign Direct Investment & Infrastructure: Through its Belt and Road Initiative (BRI), China invests in infrastructure projects in Asia, Africa, Europe, and Latin America—building roads, ports, railways, and digital networks that connect developing economies to global markets. <br>- Technological Innovation & Competition: China has become a leader in AI, 5G, e-commerce (Alibaba), fintech (WeChat Pay, Alipay), and electric vehicles (BYD, NIO), challenging Western dominance in tech innovation. <br>- Global Trade and Currency: China is the world’s largest trading nation and plays a growing role in reshaping global financial systems, including the internationalization of its currency, the Renminbi (RMB). <br>- Cultural Export & Soft Power: Chinese culture is spreading globally through media, Confucius Institutes, food, martial arts, and pop culture like cinema and fashion, enhancing its soft power. <br>- Climate and Global Issues: As both the largest emitter of carbon dioxide and a major investor in renewable energy, China plays a contradictory but crucial role in global climate negotiations."
+    },
+    "Canada": {
+           description: "<br>- Canada is the second-largest country in the world by land area, located in North America, stretching from the Atlantic to the Pacific and into the Arctic Ocean. <br>- It is a federation with ten provinces and three territories, known for its multicultural society, high quality of life, democratic governance, and strong rule of law. <br>- Canada is rich in natural resources, including oil, timber, freshwater, and minerals, and it boasts advanced sectors in technology, aerospace, education, and finance.",
+        impact: "<br>- Trade Leader: Canada is a major participant in international trade, being a member of key economic partnerships like: <br>> G7 (Group of Seven) <br>> WTO (World Trade Organization) <br>> NAFTA/USMCA (United States–Mexico–Canada Agreement) <br>> Comprehensive Economic and Trade Agreement (CETA) with the EU <br>- Natural Resource Exporter: Canada exports oil, timber, natural gas, and minerals globally, fueling economies and industries in both developed and developing nations. <br>- Cultural and Educational Exchange: Canada attracts thousands of international students annually, contributing to global knowledge exchange and soft diplomacy. Its media and culture (e.g., film, music, literature) also circulate globally. <br>- Peacekeeping & Human Rights: Canada has long been involved in UN peacekeeping missions and actively promotes climate action, human rights, and international cooperation, shaping global values and diplomacy. <br>- Technology & Innovation: Canadian research in AI, clean energy, healthcare, and biotechnology contributes to solving global challenges and fostering innovation networks.."
+    },
+    "Europe": {
+        description: "<br>- Europe is a continent located entirely in the Northern Hemisphere and mostly in the Eastern Hemisphere, comprising around 44 countries, including global powers like Germany, France, the United Kingdom, Italy, and the Nordic nations. <br>- Europe has historically been the center of cultural, political, and economic development, especially during eras like the Renaissance, Enlightenment, Industrial Revolution, and Colonial Period. <br>- It is home to the European Union (EU), one of the world’s most integrated political and economic unions, currently consisting of 27 member states.",
+        impact: "<br>- Historical Roots of Globalization: Europe was central to early globalization through colonization, maritime trade routes, and the spread of Western ideologies and systems. Major colonial powers such as Britain, France, Spain, Portugal, and the Netherlands established global empires that integrated distant parts of the world economically and culturally. <br>- Modern Economic Influence: The EU is one of the world’s largest economies and trading blocs. European countries are among the top exporters of goods, services, and capital, driving global trade patterns. <br>- Cultural Diffusion: European languages (English, French, Spanish, Portuguese) are widely spoken across the globe due to colonization. European culture, literature, philosophy, law, and education systems have been adopted and adapted worldwide. <br>- Global Governance and Diplomacy: Europe plays a pivotal role in international diplomacy, peacekeeping, and global governance through institutions like the UN, NATO, and WTO. European countries actively promote human rights, environmental standards, and democratic values globally. <br>- Technological and Scientific Contributions: Europe continues to lead in scientific research, renewable energy, and cutting-edge industries like aerospace (Airbus), automotive (Volkswagen, BMW), and pharmaceuticals. European research institutions are global hubs for innovation and academic exchange. <br>- Migration and Integration: Europe is a major destination for migrants and refugees, impacting labor markets, multiculturalism, and foreign policy. The Schengen Area allows for open borders within most of the EU, modeling regional integration."
+    },
+    "Japan": {
+        description: "<br>- Japan is an island nation in East Asia, located in the Pacific Ocean, consisting of over 6,800 islands, with the four main islands being Honshu, Hokkaido, Kyushu, and Shikoku. <br>- It has a highly urbanized population of over 125 million people, with Tokyo being the most populous metropolitan area in the world. <br>- Known for blending ancient traditions (like Shinto and samurai heritage) with cutting-edge technology, Japan is a global model of cultural preservation and modern innovation.",
+        impact: "<br>- Technological and Industrial Leadership: Japan is a global pioneer in high-tech industries, particularly robotics, electronics, and automotive manufacturing. Major multinational corporations like Toyota, Sony, Canon, and Hitachi help shape global consumer markets and industrial standards. Japan’s manufacturing philosophies—like Kaizen (continuous improvement)—have been adopted globally to improve productivity. <br>- Trade and Economic Integration: As one of the world’s largest exporters, Japan plays a central role in global supply chains. It is a leading member of regional and international trade agreements such as the Comprehensive and Progressive Agreement for Trans-Pacific Partnership (CPTPP). Japan invests heavily in overseas infrastructure, especially in Southeast Asia, strengthening interdependence in global trade. <br>- Cultural Globalization: Japan’s anime, manga, video games, fashion, and cuisine have achieved massive international popularity. Icons like Hello Kitty, Pokémon, Naruto, and Studio Ghibli symbolize Japan’s global soft power.Japanese cultural values—such as minimalism, Zen aesthetics, and harmony—are influencing global design, wellness, and lifestyle trends. <br>- Environmental and Sustainable Innovation: Japan leads in eco-technology development, particularly in hybrid and electric vehicles (e.g., the Toyota Prius). Its policies on waste management, urban planning, and energy efficiency are being replicated by other industrial nations. Japan is a strong supporter of the Paris Climate Agreement and contributes to global climate research. <br>- Educational and Scientific Advancement: Japanese universities are among the top in Asia, attracting scholars from around the world. Japan contributes to global knowledge through innovation in engineering, materials science, robotics, and pharmaceuticals. Its emphasis on STEM education and R&D spending reinforces its role in the global knowledge economy. <br>- Global Diplomacy and Development Aid: Japan is one of the largest providers of Official Development Assistance (ODA), helping fund infrastructure and education in developing nations. It plays a vital role in the United Nations, World Bank, and G7, promoting peaceful diplomacy and international cooperation. Through the Japan International Cooperation Agency (JICA), it supports capacity-building in Asia, Africa, and Latin America."
+    },
+    "South Korea": {
+        description: "<br>- South Korea, officially known as the Republic of Korea, is located in East Asia, on the southern half of the Korean Peninsula. It is bordered by North Korea to the north and surrounded by the Yellow Sea to the west and the Sea of Japan to the east. <br>- With a population of around 51 million, South Korea has a highly developed economy, driven by industrial manufacturing, technology, and exports. It is a global leader in electronics, automotive production, and shipbuilding. Seoul, the capital, is a major cultural, political, and economic hub. <br>- South Korea has transitioned from a war-torn country in the 1950s to one of the world’s most advanced economies. It has strong political alliances, notably with the United States, and is a prominent member of international organizations such as the UN, the World Trade Organization (WTO), and the Organisation for Economic Co-operation and Development (OECD).",
+        impact: "<br>- Economic Power: South Korea is a major global economic player, ranking as the 10th largest economy by nominal GDP. Its economy is export-driven, with major companies like Samsung, Hyundai, and LG leading in technology, automotive, and electronics industries. The country has become a key player in global supply chains, especially in technology and automotive sectors, influencing global markets and manufacturing practices. <br>- Cultural Exports: South Korea has become a cultural powerhouse, thanks to the global popularity of K-pop, Korean cinema, and TV dramas (such as Parasite and Squid Game). The Korean Wave, or Hallyu, has significantly influenced global pop culture, particularly among youth worldwide. The spread of Korean cuisine, particularly Korean BBQ and dishes like kimchi, has further cemented South Korea’s cultural influence globally. <br>- Technological Innovation: South Korea is one of the most technologically advanced nations, being a leader in the development of cutting-edge technologies like 5G networks, semiconductor manufacturing, and consumer electronics. Companies like Samsung and SK Hynix have revolutionized global tech industries. The country’s investment in research and development (R&D) continues to drive global advancements in fields ranging from artificial intelligence to robotics. <br>- Geopolitical Influence: South Korea plays an important role in the geopolitical landscape, particularly in East Asia. As a member of global alliances like the United Nations and the OECD, it is a strong proponent of free trade and international cooperation. Its ongoing engagement with North Korea, and its strategic military alliances, particularly with the United States, significantly impact global security dynamics. <br>- Trade and Investment: South Korea is one of the world’s leading exporters, with industries such as electronics, ships, petrochemicals, and vehicles driving global trade. It is a key partner in trade agreements, including those with the U.S., China, and the European Union. The country’s free-market economy attracts foreign investment, further embedding it in global trade and finance systems. <br>- Higher Education and Research: South Korea has a world-class education system, with a high emphasis on technological innovation and scientific research. Korean universities and research institutes are at the forefront of global breakthroughs in various fields. South Korean students and researchers contribute significantly to global knowledge-sharing, collaborating with international institutions on technological and scientific advancements."
+    },
+    "Taiwan": {
+        description: "<br>- Taiwan, officially the Republic of China (ROC), is an island nation located in East Asia, off the southeastern coast of China. It is surrounded by the Pacific Ocean, the East China Sea to the north, and the Taiwan Strait to the west, which separates it from mainland China. <br>- With a population of approximately 23 million, Taiwan has a highly developed economy, driven by technology, manufacturing, and services. Taipei, the capital, is a major global business center. Taiwan is recognized for its advanced semiconductor industry, its export-driven economy, and its vibrant democratic political system. <br>- Taiwan is not officially recognized as a separate country by the People's Republic of China, but it operates as a de facto sovereign state with its own government, military, and economy. It has played a crucial role in global supply chains, particularly in high-tech industries.",
+        impact: "<br>- Technological Leadership: Taiwan is a global leader in the semiconductor industry, home to the world’s largest contract chipmaker, Taiwan Semiconductor Manufacturing Company (TSMC). TSMC supplies chips to major global technology companies, including Apple, Qualcomm, and NVIDIA, making Taiwan a linchpin in the global tech ecosystem. Taiwan’s advancements in electronics, information technology, and telecommunications have positioned it as a critical player in shaping the global digital economy. <br>- Economic Influence: Taiwan has a robust, export-oriented economy that focuses on high-tech manufacturing, electronics, machinery, and petrochemicals. It is a key player in global trade, particularly in sectors such as semiconductors, consumer electronics, and computers. The country’s economic policies and trade agreements, particularly with the United States and the European Union, help shape global trade patterns. Taiwan’s industrial and economic capabilities make it an essential part of the global supply chain. <br>- Cultural Impact: While Taiwan is more often overshadowed by China and Japan in cultural exports, it still has a notable influence on global media, especially through its popular films, music, and television programs. Taiwan’s unique cultural blend, shaped by both traditional Chinese and indigenous cultures, is seen in its arts, cuisine, and festivals. The global reach of Taiwan’s cultural exports helps spread a unique version of Chinese heritage and modern Taiwanese identity. <br>- Political and Diplomatic Influence: Taiwan’s political system is a democracy, distinguishing it from China’s communist regime. It actively engages in global diplomacy, although it faces significant diplomatic isolation due to China’s pressure. Despite this, Taiwan maintains unofficial relations with many countries and is an active participant in international organizations such as the World Trade Organization (WTO) and the Asia-Pacific Economic Cooperation (APEC). Taiwan’s role in global governance is limited but growing, as it seeks to build support for its international recognition and contribute to global discussions on issues such as climate change, trade, and security. <br>- Military Power: Taiwan maintains a strong military to deter potential aggression from China. The country is heavily reliant on security partnerships, especially with the United States, to ensure its defense and security. The political and military situation around Taiwan remains a critical point in global geopolitics. <br>- Higher Education and Research: Taiwan has a highly developed education system and is known for its technological research and development capabilities. Taiwanese universities and research institutions contribute to global technological advancements, particularly in fields like materials science, renewable energy, and semiconductor research. Taiwan's emphasis on education, science, and innovation has helped it become a leading global knowledge hub, attracting international students and researchers."
+    },
+    "Australia": {
+        description: "<br>- Australia is a sovereign nation and continent located in the Southern Hemisphere, bordered by the Pacific and Indian Oceans. It is the sixth-largest country by land area and has a population of approximately 26 million people. The country is known for its diverse landscapes, ranging from tropical rainforests to vast deserts and modern cities. The capital city is Canberra, but the largest city is Sydney. <br>- Australia is a highly developed country, with a strong economy based on natural resources, agriculture, and a booming service sector. The country has a stable political system and a high standard of living, with a strong emphasis on education, healthcare, and human rights. Australia's economic prosperity, combined with its global ties, positions it as an important player on the world stage.",
+        impact: "<br>- Economic Strength: Australia is one of the world’s largest producers of natural resources, including coal, iron ore, gold, and natural gas. These exports drive its economy, making it a significant contributor to global supply chains, particularly in energy and raw materials. As a member of various international trade agreements and organizations, such as the World Trade Organization (WTO) and the Trans-Pacific Partnership (TPP), Australia plays a central role in shaping global trade policies and economic integration. <br>- Cultural Influence: Australian culture has made a significant impact globally through its entertainment industry, particularly in film and television. Hollywood stars like Hugh Jackman, Nicole Kidman, and Cate Blanchett have made Australia a well-known cultural force. Australia is also recognized for its distinctive cuisine, art, and music, influencing global tastes. The global popularity of Australian beaches, surfing culture, and the unique wildlife (e.g., koalas and kangaroos) strengthens its cultural footprint internationally. Australia’s diverse population, with large immigrant communities, has contributed to a rich cultural exchange and greater global understanding. <br>- Technological and Educational Contribution: Australia is home to some of the world’s leading research institutions, contributing to global advancements in science, medicine, and technology. Universities like the University of Sydney and the Australian National University attract international students and foster academic collaboration. The country is also a leader in medical research, renewable energy technologies, and environmental sciences, contributing knowledge and innovations to address global challenges. <br>- Diplomatic and Geopolitical Influence: Australia plays a key role in the Asia-Pacific region, particularly in terms of diplomatic relations, security, and trade. As a member of key international organizations such as the United Nations, the Commonwealth of Nations, and the G20, Australia helps shape global governance and policy. The country maintains strong bilateral relationships with major powers like the United States, China, Japan, and India, and it often acts as a mediator in regional disputes. Australia’s participation in peacekeeping and humanitarian efforts further enhances its international influence. <br>- Environmental Stewardship: Australia is at the forefront of global efforts to address climate change, with significant investments in renewable energy sources such as solar and wind power. The nation’s Great Barrier Reef is a major global environmental asset, and its conservation has widespread international significance. Australia’s commitment to preserving its unique ecosystems and biodiversity aligns with global sustainability initiatives and positions it as a leader in environmental stewardship. <br>- Trade and Investment: Australia is an open, export-driven economy, with a strong emphasis on free trade. Its strategic location in the Asia-Pacific region makes it an essential trading partner, particularly with countries like China, Japan, and the United States. Foreign investment, particularly in mining, real estate, and technology, plays a vital role in Australia’s economic growth. Australia’s stable regulatory environment and skilled workforce make it an attractive destination for international business."
+    },
+    "New Zealand": {
+        description: "<br>- New Zealand is an island nation located in the southwestern Pacific Ocean, known for its stunning landscapes, rich biodiversity, and unique indigenous Maori culture. Comprising two main islands—the North Island and the South Island—along with numerous smaller islands, it has a population of around 5 million people. The capital city is Wellington, while Auckland is its largest and most economically significant city. <br>- New Zealand has a strong economy primarily based on agriculture, tourism, and services. The country is renowned for its high quality of life, political stability, and commitment to sustainability. It is often ranked highly in global indexes for education, human development, and environmental preservation. New Zealand’s strategic location and international relationships also bolster its global presence.",
+        impact: "<br>- Economic Contribution: New Zealand is a major exporter of agricultural products, including dairy, meat, and wine, contributing significantly to global food markets. Its products are highly valued in Asia, Europe, and North America. The country has a growing tech sector, particularly in software development and biotech, and has become an attractive location for foreign direct investment, especially in the fields of agritech, renewable energy, and environmental sustainability. <br>- Cultural Influence: New Zealand's indigenous Maori culture has influenced global art, music, and language, contributing to a deeper understanding and appreciation of native traditions and languages worldwide. The country is internationally recognized for its contributions to the film industry, particularly through director Peter Jackson’s iconic “The Lord of the Rings” and “The Hobbit” trilogies. These films showcased New Zealand's breathtaking landscapes and brought international attention to the country’s cultural identity and filmmaking expertise. New Zealand's indigenous music and dance, such as the Haka, are celebrated globally, creating cultural ties with other nations and fostering international recognition of its unique heritage. <br>- Environmental Leadership: New Zealand is renowned for its commitment to environmental sustainability and conservation. Its clean, green image has been a significant part of its global identity, making it a leader in sustainable tourism and eco-friendly practices. The country’s conservation efforts, including the protection of its unique flora and fauna, and its commitment to reducing carbon emissions, have earned New Zealand a strong reputation in global environmental advocacy. <br>- Technology and Innovation: Although New Zealand is geographically distant from major global tech hubs, it punches above its weight in technological innovation. It has become a global leader in agritech, renewable energy, and digital innovation, with numerous start-ups gaining international recognition. The country is also known for its research in environmental science, medical advancements, and agriculture, particularly in relation to its commitment to sustainability and ecological balance. <br>- Diplomatic Influence: New Zealand has a strong reputation in international diplomacy, particularly in its peacekeeping efforts and commitment to human rights. The country is a strong advocate for global disarmament and climate action, having played a key role in establishing the Nuclear-Free Zone in the South Pacific. As a member of the United Nations, the Commonwealth of Nations, and regional organizations like the Pacific Islands Forum, New Zealand contributes to global discussions on governance, international security, and human rights. <br>- Tourism and Global Ties: New Zealand is one of the world’s most popular travel destinations, attracting millions of international tourists each year. Its tourism industry plays a critical role in connecting the country to global markets and promoting its image as an eco-tourism destination. The country’s natural beauty, adventure tourism, and cultural attractions have solidified its place on the world stage, strengthening its international ties and fostering global cultural exchange. <br>- Trade and Investment: New Zealand is a free-market economy, heavily dependent on exports, with significant trade relationships with China, Australia, the United States, and Europe. Its strong agricultural exports and focus on high-value products, such as wine, dairy, and timber, integrate it into global trade networks. The country’s policies promote innovation, entrepreneurship, and foreign investment, making it an attractive destination for global businesses and investment projects, particularly in tech and sustainability sectors."
+    }
+};
+
+
+var countries = {
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "properties": { "name": "United States" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
+                    [-101.5, 48.5], [-101.5, 26], [-66.9, 26], [-66.9, 48.5], [-101.5, 48.5]
+                ]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": { "name": "Canada" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
+                    [-140, 60], [-140, 50], [-60, 50], [-60, 60], [-140, 60]
+                ]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": { "name": "China" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
+                    [73, 53], [73, 18], [135, 18], [135, 53], [73, 53]
+                ]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": { "name": "Europe" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
+                    [-10, 70], [-10, 35], [40, 35], [40, 70], [-10, 70]
+                ]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": { "name": "Japan" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
+                    [129, 46], [129, 30], [146, 30], [146, 46], [129, 46]
+                ]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": { "name": "South Korea" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
+                    [125, 39], [125, 34], [130, 34], [130, 39], [125, 39]
+                ]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": { "name": "Taiwan" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
+                    [119, 26], [119, 22], [123, 22], [123, 26], [119, 26]
+                ]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": { "name": "Australia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
+                    [113, -10], [113, -44], [154, -44], [154, -10], [113, -10]
+                ]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": { "name": "New Zealand" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
+                    [165, -33], [165, -48], [180, -48], [180, -33], [165, -33]
+                ]]
+            }
+        }
+    ]
+};
+
+    // Function to display info
+    function showInfo(name) {
+    const data = countryData[name];
+    if (data) {
+       document.getElementById('info').innerHTML = `
+    <div id="info-box">
+        <h2>${name}</h2>
+        <p><strong>🌐 Description:</strong> ${data.description}</p>
+        <p><strong>🌍 Impact:</strong> ${data.impact}</p>
+    </div>
+`;
+
+    } else {
+        document.getElementById('info').innerHTML = `
+            <h2>${name}</h2>
+            <p>Globalization data not available yet. Stay tuned!</p>
+        `;
+    }
+}
+
+
+    // Add countries to map with hover effects
+    L.geoJSON(countries, {
+        onEachFeature: function (feature, layer) {
+    layer.on('click', function () {
+        showInfo(feature.properties.name);
+        layer.setStyle({
+            color: "#800080",        // purple border
+            fillColor: "#c09ac8",    // fill
+            weight: 3,
+            fillOpacity: 0.4
+        });
+    });
+
+            layer.on('mouseover', function() {
+                layer.setStyle({ color: "#a05fa0", weight: 3, fillOpacity: 0.4 });
+
+            });
+            layer.on('mouseout', function() {
+                layer.setStyle({ color: "#a05fa0", weight: 2, fillOpacity: 0.2 });
+            });
+            layer.bindTooltip(feature.properties.name, {permanent: false, direction: "center"});
+        },
+        style: {
+    color: "#800080",           // Purple border
+    fillColor: "#c09ac8",       // Softer purple fill
+    weight: 2,
+    fillOpacity: 0.3
+}
+
+    }).addTo(map);
+</script>
+
+</body>
+</html>

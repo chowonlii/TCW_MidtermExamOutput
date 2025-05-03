@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Globalization Impact Map</title>
+
+    <!-- Include external CSS for styling -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-geoman-free@2.9.0/dist/leaflet-geoman.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+      <style>
+body {
+    font-family: 'Poppins', sans-serif; /* Changed to Georgia, serif */
+	font-style: italic;
+    margin: 0;
+   
+    color: #333;
+}
+.main-content {
+    background:;
+ /* You can replace with any color you prefer */
+    padding: 20px 0;
+	background-image: url('global.webp');  /* Set your image here */
+    background-size: cover;  /* Ensures the image covers the entire header */
+    background-position: center;  /* Centers the image */
+    background-attachment: fixed;
+	 position: relative; /* This is required for ::before to align correctly */
+    z-index: 1;
+       
+		
+}
+.main-content::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+   inset: 0; /* shorthand for top: 0; right: 0; bottom: 0; left: 0 */
+    background: rgba(0, 0, 0, 0.4); /* Dark gray overlay, same as header/footer */
+    z-index: -1; /* Push it behind the content */
+}
+
+
+
+        header {
+          background-image: url('global.webp');  /* Set your image here */
+    background-size: cover;  /* Ensures the image covers the entire header */
+    background-position: center;  /* Centers the image */
+    background-attachment: fixed;
+       
+		
+		color:  #f0f8ff;
+            padding: 0.1em;
+            text-align: center;
+			font-family: 'Georgia', serif;
+
+
+
+
+    
+    font-style: italic; /* Makes the text italic */
+			
+        }header h1 {
+		font-size: 40px;
+		margin-bottom: 0.2em; /* or try 0, 0.1em, etc. */
+		 color: #9e8b9d;
+    -webkit-text-stroke: 0.5px #dee6e6; /* Black outline */
+    text-stroke: 0.9px #9e8b9ds; 
+		}
+		header p {
+    margin-top: 0;
+	font-size: 18px;
+	 color: #9e8b9d;
+    -webkit-text-stroke: 0.3px #dee6e6; /* Black outline */
+    text-stroke: 9px #ccbccc; 
+}
+        #map {
+            width: 100%;
+            height: 400px;
+            margin: 20px 0;
+        }
+       #info {
+    padding: 20px;
+    background:#dfd7dc;
+    border-radius: 10px;
+    margin: 20px;
+	margin-bottom: 1px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    border-left: 5px solid #0083b0;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+		
+		#info p{
+		margin-bottom:15px;
+		
+		}
+       h2 {
+	   font-size:32px;
+	   margin-top:5px;
+	   margin-bottom:20px;
+    color: #9e8b9d;
+    -webkit-text-stroke: 0.5px #dee6e6; /* Black outline */
+    text-stroke: 0.9px #9e8b9d;         /* Fallback for other browsers */
+	
+}
+
+
+        footer {
+            text-align: center;
+            padding: 1em;
+            background-image: url('global.webp');  /* Set your image here */
+    background-size: cover;  /* Ensures the image covers the entire header */
+    background-position: center;  /* Centers the image */
+    background-attachment: fixed;
+	font-size: 18px
+	opacity: 1;
+           
+		
+          color: #9e8b9d;
+    -webkit-text-stroke: 0.3px #dee6e6; /* Black outline */
+    text-stroke: 0.9px #ccbccc; 
+			font-family: 'Georgia', serif;
+        }
+		#info-box {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-left: 5px solid #0083b0;
+    padding: 15px;
+   background: #f0f8ff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+    animation: fadeIn 0.3s ease-in-out;
+}header, footer {
+    position: relative;
+    z-index: 1;
+    color: #9e8b9d; /* Ensures text stays readable */
+    overflow: hidden; /* Contains the pseudo-element */
+	opacity: 1;
+}
+
+header::before,
+footer::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* Dark gray overlay */
+    z-index: -1; /* Push behind the content */
+	 color: #9e8b9d;
+    -webkit-text-stroke: 0.3px #dee6e6; /* Black outline */
+    text-stroke: 0.2px #ccbccc; 
+	
+}
+
+#info-box h2 {
+    margin-top: 0;
+	margin-bottom: -10px;
+        color: #9e8b9d;
+    -webkit-text-stroke: 0.5px #dee6e6; /* Black outline */
+    text-stroke: 0.9px #9e8b9d;         
+}
+
+#info-box p {
+    margin: 10px 0;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+/* Add extra space specifically after the first paragraph */
+#info-box p:first-of-type {
+    margin-bottom: -10px; /* Adjust this value as needed */
+}
+
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+#back-link {
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    background: #f3f1eb;
+    border-left: 5px solid #0083b0;
+    padding: 8px 14px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    font-family: 'Georgia', serif;
+    z-index: 10;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+#back-link a {
+    text-decoration: none;
+    font-size: 16px;
+    color: #9e8b9d;
+    -webkit-text-stroke: 0.3px #dee6e6;
+    text-stroke: 1px #9e8b9d;
+}
+
+#back-link a:hover {
+    text-decoration: underline;
+}
+
+
+
+
+		
+    </style>
+</head>
+<body>
+
+<header>
+<div id="back-link">
+    <a href="index.html">← Go Back</a>
+</div>
+
+    <h1>🌍 Global South Impact Map</h1>
+    <p>Click a country to explore a brief description about that country and its impact on globalization!</p>
+</header>
+
+
+<!-- Added wrapper for main content -->
+<div class="main-content">
+    <div id="map"></div>
+
+    <div id="info">
+        <h2>Country Information</h2>
+        <p>Select a country on the map to see details.</p>
+    </div>
+</div>
+
+<footer>
+    <p>© 2025 Global Impact Explorer | Connecting the World</p>
+</footer>
+
+<!-- Include external JS for Leaflet and interactive map -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-geoman-free@2.9.0/dist/leaflet-geoman.min.js"></script>
+
+<script>
+    // Initialize map
+    var map = L.map('map', {
+        center: [20, 0],
+        zoom: 2,
+        minZoom: 2,
+        maxZoom: 4,
+        worldCopyJump: false,
+        maxBounds: [
+            [-90, -180], // South-west corner (latitude, longitude)
+            [90, 180]    // North-east corner (latitude, longitude)
+        ],
+        maxBoundsViscosity: 1.0  // Prevent scrolling past the boundaries
+    });
+
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 5,
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    // Global South countries info
+    const countryData = {
+    "Latin America & Caribbean": {
+        description: "<br>- Latin America and the Caribbean is a culturally and geographically diverse region composed of over 30 countries and territories in Central America, South America, and the Caribbean. Major countries include Brazil, Mexico, Argentina, Colombia, Chile, and Peru in Latin America, and nations such as Jamaica, the Dominican Republic, and Trinidad and Tobago in the Caribbean. <br>- The region is rich in natural resources—oil, copper, lithium, coffee, bananas, and biodiversity—and has a history shaped by colonization, indigenous resilience, and global trade. With a population of over 650 million, it features a mix of emerging economies and small island developing states (SIDS), many of which face challenges like income inequality, political instability, and external debt.",
+        impact: "<br>- Natural Resource Supply & Global Trade: Latin America plays a vital role in supplying global markets with essential raw materials, including copper (Chile, Peru), lithium (Bolivia, Argentina), oil (Venezuela, Brazil), soybeans (Brazil, Argentina), and coffee (Colombia, Brazil). Caribbean nations contribute through tourism, offshore banking, and maritime shipping hubs that connect global supply chains. <br>- Cultural and Linguistic Influence: Latin American and Caribbean music, literature, cuisine, and film have had widespread global appeal—e.g., Latin pop, salsa, reggae, reggaetón, and authors like Gabriel García Márquez or Isabel Allende. Spanish and Portuguese are globally significant languages, widely taught and spoken as a second language in many parts of the world. The diaspora in the U.S., Europe, and elsewhere promotes cultural exchange and remittances that link economies and cultures. <br>- Tourism & Global Movement: The Caribbean is one of the most tourism-dependent regions globally, attracting millions of international visitors each year, especially from North America and Europe. Cruise tourism, ecotourism, and adventure tourism have connected the region to global travel markets, supporting infrastructure development and global service integration. <br>- Regional Economic Blocs: Organizations like MERCOSUR, the Pacific Alliance, and CARICOM promote regional economic integration and trade liberalization, helping member states engage more actively in globalization. Free trade agreements with the U.S., EU, and China have further connected Latin American economies to global markets. <br>- Environmental & Climate Relevance: The Amazon rainforest, spanning several Latin American countries, is a vital global carbon sink, central to climate change mitigation discussions. Caribbean island nations are vocal leaders in global climate diplomacy, calling for urgent action to address rising sea levels and natural disasters, which disproportionately impact SIDS. <br>- Emerging Technology and Digital Expansion: Cities like São Paulo, Mexico City, and Bogotá are becoming hubs for fintech, start-ups, and e-commerce in the Global South. The rise of digital banking and mobile technology has increased financial inclusion and regional connectivity to the global digital economy."
+    },
+    "Africa": {
+        description: "<br>- Africa is the second-largest and second-most populous continent, home to 54 recognized countries and over 1.4 billion people. Geographically diverse—ranging from deserts (Sahara), rainforests (Congo Basin), savannahs, and coastlines—Africa is rich in natural resources including oil, diamonds, rare earth minerals, gold, and agricultural land. Major regional powers include Nigeria, South Africa, Egypt, Kenya, and Ethiopia. <br>- While Africa contains both developing and emerging economies, many nations face challenges such as poverty, infrastructural gaps, and post-colonial inequalities. However, it is also one of the fastest-growing regions in terms of population, mobile technology adoption, and urbanization.",
+        impact: "<br>- Natural Resources and Global Supply Chains: Africa is a major supplier of critical raw materials—such as cobalt (Democratic Republic of Congo), platinum (South Africa), oil (Nigeria, Angola), and uranium (Niger)—that are essential for global industries, especially green technology and electronics. Global companies depend heavily on African minerals for manufacturing electric vehicles, smartphones, and renewable energy infrastructure. <br>- Agricultural Trade and Food Exports: Countries like Ivory Coast and Ghana lead global cocoa exports, while Ethiopia is a top producer of coffee. Africa's agricultural products feed global markets, despite local food insecurity and climate vulnerability in several regions. <br>- Labor, Migration, and Diaspora Influence: African migrants and diasporas contribute to globalization through remittances (which surpass foreign aid in some countries), cultural exchange, and skilled labor migration. African professionals in healthcare, engineering, and academia play vital roles in countries across Europe, North America, and the Gulf. <br>- Cultural Contributions and Global Identity: African music genres (Afrobeats, amapiano, Afro-jazz), fashion, cinema (Nollywood), and art are gaining global audiences and reshaping cultural globalization narratives. Events like the rise of African artists in global charts (e.g., Burna Boy, Wizkid, Tems) and films (e.g., Netflix collaborations with African studios) show Africa's expanding cultural footprint. <br>- Technology and Mobile Revolution: Africa is leading in mobile banking innovation with platforms like M-PESA (Kenya), used for financial inclusion, especially where traditional banks are limited. Tech hubs in cities like Lagos, Nairobi, and Kigali support startups and digital ecosystems connecting Africa to the global tech economy. <br>- Political Engagement and Peacekeeping: African nations actively contribute to international organizations like the United Nations and African Union, supporting peacekeeping, mediation, and climate diplomacy. Countries like Rwanda, Ghana, and Senegal are playing increasing roles in global policy dialogue and South-South cooperation. <br>- Tourism and Heritage: Africa attracts global tourists for safaris, ancient civilizations (e.g., Egypt), and cultural heritage. Tourism also promotes investment in infrastructure and international partnerships."
+    },
+    "India": {
+        description: "<br>- India is a vast South Asian nation and the world's most populous democracy, with over 1.4 billion people. It is the seventh-largest country by land area and a federal parliamentary republic comprising 28 states and 8 union territories. India is known for its cultural diversity, ancient civilizations, and contributions to philosophy, science, and mathematics. <br>- Economically, India is the 5th largest economy by nominal GDP and a major emerging global power. It has rapidly modernized sectors like information technology, pharmaceuticals, and space science, while also grappling with issues like poverty, inequality, and infrastructural gaps. As a nuclear power and member of the BRICS bloc, India plays an increasingly strategic role in global affairs.",
+        impact: "<br>- Information Technology and Services: India is a global leader in IT services and business process outsourcing (BPO), with companies like Infosys, Wipro, and TCS providing tech solutions to clients worldwide. Its skilled, English-speaking workforce supports global software development, cybersecurity, and customer service industries. <br>- Pharmaceutical and Medical Influence: Known as the “pharmacy of the world,” India is a top exporter of generic drugs and vaccines, especially to developing countries. India’s pharmaceutical sector played a key role in global COVID-19 vaccine distribution via the COVAX initiative and bilateral agreements. <br>- Cultural Globalization and Soft Power: Bollywood is a global entertainment phenomenon, influencing fashion, music, and cinema across Asia, Africa, and the Middle East. Indian cuisine, yoga, spirituality, and festivals like Diwali are celebrated globally, boosting cultural diplomacy. <br>- Space and Scientific Development: India’s space agency ISRO has launched successful missions like Chandrayaan (moon) and Mangalyaan (Mars), gaining international acclaim for low-cost innovation. Collaborations with NASA and other space agencies position India as a competitive player in space tech and satellite launches. <br>- Diaspora and Global Workforce: India has one of the largest global diasporas (over 30 million), contributing to innovation, politics, and academia worldwide. Remittances from Indian workers abroad are among the highest globally, strengthening the domestic economy. <br>- Trade and Economic Partnerships: India is a major exporter of textiles, jewelry, software, and chemicals. Its participation in trade groupings like BRICS, G20, and regional initiatives increases its influence in shaping global trade policies. <br>- Environmental and Climate Role: As a large developing nation, India plays a key role in climate negotiations and sustainability efforts. It promotes renewable energy through initiatives like the International Solar Alliance (ISA), aiming to lead the global green energy transition."
+    },
+    "Indonesia": {
+        description: "<br>- Indonesia is the largest archipelagic country in the world, comprising over 17,000 islands and located strategically between the Indian and Pacific Oceans. With a population of over 270 million, it is the fourth most populous country globally and the largest economy in Southeast Asia. Its capital is Jakarta, and the nation is characterized by rich biodiversity, diverse cultures, and significant natural resources. <br>- Indonesia operates as a democratic republic with a rapidly growing middle class. Though traditionally reliant on commodities like palm oil, coal, and rubber, Indonesia has been diversifying its economy with growth in manufacturing, digital services, and infrastructure. It is a key player in ASEAN and an emerging voice in global affairs.",
+        impact: "<br>- Trade and Natural Resources: Indonesia is one of the world’s leading exporters of palm oil, coal, nickel, and rubber. These commodities are central to global manufacturing and energy supply chains. As demand for electric vehicles grows, Indonesia’s rich nickel reserves position it as a crucial supplier in the global battery production market. <br>- Geopolitical and Regional Influence: As the largest member of ASEAN, Indonesia plays a pivotal role in Southeast Asian diplomacy, trade integration, and regional security. It promotes a “free and active” foreign policy, often balancing relations between global powers like the U.S. and China. <br>- Cultural Exports and Tourism: Indonesian culture, especially through traditional arts, cuisine, and religious festivals, is increasingly visible on the global stage. Bali, in particular, has become an internationally recognized tourism hub, contributing to cross-cultural exchange and service globalization. <br>- Environmental and Climate Role: Indonesia is one of the world’s most biodiverse countries but also a major emitter of greenhouse gases due to deforestation and peatland burning. The country is actively participating in international climate efforts and pledging sustainable development policies through initiatives like the “Green Economy.” <br>- Digital Economy and Tech Growth: Indonesia has one of the largest and fastest-growing digital markets in Asia. Its e-commerce and fintech sectors, led by companies like Gojek and Tokopedia, attract global investment. The rise of digital startups and tech-savvy youth is contributing to global innovation ecosystems. <br>- Labor and Global Workforce: Millions of Indonesians work abroad, particularly in the Middle East and East Asia, contributing significant remittances and cultural exchange. The country also serves as a source of low- to mid-skilled labor in regional supply chains, from agriculture to manufacturing."
+    },
+    "Philippines": {
+        description: "<br>- The Philippines is a Southeast Asian archipelagic nation composed of over 7,600 islands, with a population of approximately 115 million people. Its capital is Manila, and its most populous city is Quezon City. The country is known for its diverse culture—a blend of indigenous traditions, Spanish colonial influence, and American heritage. <br>- The Philippines operates as a democratic republic and has a service-driven economy with growing sectors in business process outsourcing (BPO), overseas labor remittances, tourism, and digital services. It is rich in natural resources, boasts high levels of English proficiency, and plays an active role in regional diplomacy through ASEAN.",
+        impact: "<br>- Global Labor Force and Remittances: Over 10 million Filipinos work overseas as nurses, engineers, domestic helpers, seafarers, and professionals, making the country one of the world’s top labor exporters. Remittances from Overseas Filipino Workers (OFWs) contribute over 9% to the nation’s GDP, making labor mobility a major channel of globalization. <br>- Business Process Outsourcing (BPO) Hub: The Philippines is one of the world’s leading destinations for BPO services, including customer support, IT, and finance. Its English-speaking population and skilled labor force attract multinational corporations, integrating the country into global service value chains. <br>- Cultural Globalization: Filipino pop culture, cuisine, and diaspora communities are influential worldwide. The rise of artists, entertainers, and influencers of Filipino heritage expands cultural soft power. Filipino values like hospitality and family-centric living also permeate global Filipino communities. <br>- Diaspora and Soft Power: The global Filipino diaspora strengthens cross-border cultural ties, fosters knowledge transfer, and increases the country's international visibility. OFWs play an unofficial diplomatic role, fostering goodwill and connections in host countries. <br>- Tourism and Biodiversity: Natural wonders like Palawan, Boracay, and Banaue Rice Terraces make the Philippines a global tourist destination, supporting international mobility and eco-tourism. Its rich biodiversity makes it a key player in international environmental dialogues. <br>- Digital Adoption and Connectivity: The Philippines has a fast-growing digital economy, with rising penetration of e-commerce, fintech, and social media platforms. Filipinos are among the most active social media users globally, contributing to global online trends and digital marketing influence."
+    },
+    "Vietnam": {
+        description: "<br>- Vietnam is a Southeast Asian country located along the eastern edge of the Indochinese Peninsula, with a population of over 98 million people. Its capital is Hanoi, while Ho Chi Minh City (formerly Saigon) is its largest commercial hub. Vietnam is a one-party socialist republic led by the Communist Party, with a rapidly modernizing economy and growing global profile. <br>- After decades of war in the 20th century, Vietnam has undergone significant economic reforms (Đổi Mới) since the 1980s, transforming from a centrally planned economy to a socialist-oriented market economy. Today, it is a major exporter of electronics, textiles, and agricultural products, and a key player in global manufacturing and supply chains.",
+        impact: "<br>- Manufacturing and Export Hub: Vietnam has become a vital part of the global supply chain, especially in electronics (Samsung, Intel), textiles, and footwear, serving as an alternative to China for many multinational companies. Its strategic location and cost-effective labor market attract foreign direct investment from Asia, the U.S., and Europe. <br>- Trade Agreements and Integration: Vietnam is a member of several major trade blocs and pacts, including ASEAN, CPTPP (Comprehensive and Progressive Agreement for Trans-Pacific Partnership), and RCEP (Regional Comprehensive Economic Partnership). These agreements have enhanced its export access and accelerated economic globalization. <br>- Labor and Workforce Contribution: Vietnam’s skilled and youthful labor force supports its growing manufacturing sector, contributing competitively to global production. Labor mobility within ASEAN and partnerships with global companies increase transnational labor dynamics. <br>- Tourism and Cultural Exchange: Vietnam attracts millions of international tourists each year, offering rich cultural heritage, cuisine, and natural beauty. Global travelers contribute to cross-cultural interactions and economic exchange through tourism. <br>- Digital Growth and Tech Adoption: Vietnam’s rising digital economy is marked by a young population active in e-commerce, digital finance, and tech innovation. Local tech startups and fintech platforms are increasingly integrated into regional and global digital markets. <br>- Environmental and Climate Engagement: Vietnam is heavily involved in global environmental dialogues, especially concerning climate change, sustainability, and Mekong River preservation. As a climate-vulnerable nation, it partners with other countries for green energy transition and adaptation."
+    },
+    "Pakistan": {
+        description: "<br>- Pakistan is a South Asian country located at the crossroads of Central Asia, the Middle East, and the Indian subcontinent. With a population exceeding 240 million, it is the fifth most populous country in the world. Its capital is Islamabad, and Karachi is its largest city and economic hub. <br>- Pakistan is a federal parliamentary republic with a mixed economy that includes agriculture, industry, and services. Strategically located along trade and energy routes, it plays a pivotal role in regional geopolitics. Historically, it has faced political instability, security challenges, and economic volatility, but it continues to engage actively in globalization through trade, labor migration, and strategic alliances.",
+        impact: "<br>- Geostrategic Importance: Pakistan lies at a vital junction between South Asia, the Middle East, and China, making it a critical player in regional trade, energy, and security corridors. It is central to China’s Belt and Road Initiative (BRI), particularly through the China-Pakistan Economic Corridor (CPEC), which links Western China to the Arabian Sea. <br>- Labor Migration and Diaspora: Millions of Pakistani workers contribute to the labor markets of the Gulf states, Europe, and North America, sending back billions in remittances annually. The Pakistani diaspora supports transnational business links and cultural exchange. <br>- Trade and Industry Participation: Pakistan is a major exporter of textiles, garments, rice, and surgical instruments. Its manufacturing sector is increasingly integrated into global markets. It maintains trade agreements with various countries and is part of regional economic organizations like SAARC and ECO. <br>- Cultural and Religious Influence: Pakistan contributes significantly to Islamic scholarship, art, and culture, fostering ties with Muslim-majority countries and shaping global religious discourse. Through media (dramas, films, music) and sports (especially cricket), Pakistan participates in cultural globalization. <br>- Digital and Tech Evolution: Pakistan’s growing digital economy includes a rise in freelance tech workers, mobile banking, and e-commerce platforms like Daraz and fintech initiatives. The tech-savvy youth are expanding Pakistan’s digital footprint globally. <br>- Global Security and Diplomacy: As a nuclear power and key U.S. ally in the War on Terror (post-2001), Pakistan plays a complex role in global security debates. It engages in multilateral forums like the UN, OIC, and SCO to advocate for development, peace, and regional cooperation."
+    },
+    "Bangladesh": {
+        description: "<br>- Bangladesh is a densely populated country in South Asia, bordered by India on three sides and the Bay of Bengal to the south. Its capital is Dhaka, a rapidly growing megacity. With over 170 million people, Bangladesh has made significant economic progress in recent decades despite limited natural resources. <br>- Once considered one of the poorest nations, Bangladesh is now an emerging economy known for its booming garment industry, rapid urbanization, and substantial improvements in health, education, and gender equality. It is classified as a lower-middle-income country and is on track for graduation from the UN’s Least Developed Country (LDC) status.",
+        impact: "<br>- Textile and Garment Industry Powerhouse: Bangladesh is the second-largest exporter of ready-made garments (RMG) in the world, supplying brands like H&M, Zara, and Walmart. The garment sector employs over 4 million people, mostly women, and drives integration into global supply chains. <br>- Labor and Migration Influence: Millions of Bangladeshi workers are employed overseas, particularly in the Gulf and Southeast Asia, generating over $20 billion in annual remittances. This labor migration supports both domestic economic stability and transnational cultural and familial ties. <br>- Economic Reforms and Export-Led Growth: Bangladesh has implemented economic reforms to improve export competitiveness, diversify industries (pharmaceuticals, ICT, leather), and attract foreign direct investment (FDI). The government promotes special economic zones and development partnerships with China, Japan, and South Korea. <br>- Digital Innovation and Development: Through the “Digital Bangladesh” initiative, the country is expanding internet access, e-governance, and IT-enabled services. A growing tech startup ecosystem is helping integrate Bangladesh into the digital economy. <br>- Environmental and Climate Dialogue: As one of the countries most vulnerable to climate change, Bangladesh actively participates in global climate negotiations. It is a voice for climate justice, adaptation funding, and sustainable development goals. <br>- Participation in Global Institutions: Bangladesh contributes to UN peacekeeping missions and is a vocal advocate for Global South priorities in the UN, WTO, and regional groups like SAARC. It engages diplomatically on issues like refugee rights (e.g., Rohingya crisis), fair trade, and inclusive growth."
+    },
+    "Middle East": {
+        description: "<br>- The Middle East is a transcontinental region centered on Western Asia and parts of North Africa. It encompasses a diverse range of countries including Saudi Arabia, Iran, Iraq, the United Arab Emirates, Israel, Jordan, Syria, Lebanon, Yemen, and others. Rich in historical significance as the cradle of ancient civilizations and major world religions (Islam, Christianity, Judaism), the region is also pivotal in contemporary global geopolitics. <br>- The Middle East holds a strategic position due to its control over key maritime routes and vast reserves of oil and gas. While some countries are wealthy (like the Gulf monarchies), others face economic hardship and political instability. The region presents a complex interplay of rapid modernization, traditional values, sectarian divisions, and efforts toward diversification and regional integration.",
+        impact: "<br>- Energy and Resource Dominance: The Middle East supplies over 30% of the world’s crude oil, with countries like Saudi Arabia, Iran, Iraq, and the UAE being key members of OPEC. Global oil prices, energy security, and fuel markets are heavily influenced by Middle Eastern production and political stability. <br>- Global Investment and Sovereign Wealth Funds: Countries like Qatar, UAE, and Saudi Arabia deploy massive sovereign wealth funds (e.g., the Public Investment Fund of Saudi Arabia) to invest in global real estate, sports, infrastructure, and tech. These investments link the region to global financial markets and multinational enterprises. <br>- Geopolitical Influence and Diplomacy: The region is central to global diplomacy due to conflicts (e.g., Israel-Palestine, Syria, Yemen), nuclear negotiations (e.g., Iran), and U.S. military presence. Regional blocs (e.g., Gulf Cooperation Council) and peace initiatives have global implications for security, refugee movements, and international law. <br>- Religious and Cultural Exports: The Middle East is the birthplace of major religions and a global center for Islamic scholarship, pilgrimage (e.g., Hajj in Mecca), and religious tourism. Cultural exports like Arabic music, cuisine, and media (e.g., Al Jazeera) help shape global perceptions of Arab identity. <br>- Labor Migration and Global Workforce: Gulf states host millions of migrant workers from South and Southeast Asia, creating vast transnational labor networks. Remittances from the Middle East support economies in countries like Bangladesh, India, the Philippines, and Pakistan. <br>- Technology and Innovation Zones: Countries like the UAE and Saudi Arabia are investing in tech cities (e.g., NEOM), renewable energy (solar, hydrogen), and digital infrastructure. These efforts are part of “Vision” reforms (e.g., Saudi Vision 2030) aimed at global integration beyond oil dependence."
+    }
+};
+
+   var countries = {
+    "type": "FeatureCollection",
+    "features": [
+       {
+    "type": "Feature",
+    "properties": { "name": "Latin America & Caribbean" },
+    "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+            [-90, -60], [-90, 30], [-30, 30], [-30, -60], [-90, -60]
+        ]]
+    }
+}
+,
+        {
+    "type": "Feature",
+    "properties": { "name": "Africa" },
+    "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+            [-20, -35], [-20, 38], [55, 38], [55, -35], [-20, -35]
+        ]]
+    }
+}
+,
+        {
+            "type": "Feature",
+            "properties": { "name": "India" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
+                    [68, 7], [68, 37], [98, 37], [98, 7], [68, 7]
+                ]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": { "name": "Indonesia" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
+                    [95, -10], [95, 5], [141, 5], [141, -10], [95, -10]
+                ]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": { "name": "Philippines" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
+                    [118, 5], [118, 21], [126, 21], [126, 5], [118, 5]
+                ]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": { "name": "Vietnam" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
+                    [102, 8], [102, 23], [110, 23], [110, 8], [102, 8]
+                ]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": { "name": "Pakistan" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
+                    [60, 23], [60, 37], [80, 37], [80, 23], [60, 23]
+                ]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": { "name": "Bangladesh" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
+                    [88, 20], [88, 27], [92, 27], [92, 20], [88, 20]
+                ]]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": { "name": "Middle East" },
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [[
+                    [35, 15], [35, 40], [60, 40], [60, 15], [35, 15]
+                ]]
+            }
+        }
+    ]
+};
+
+
+    // Function to display info
+    function showInfo(name) {
+        const data = countryData[name];
+        if (data) {
+            document.getElementById('info').innerHTML = `
+                <div id="info-box">
+                    <h2>${name}</h2>
+                    <p><strong>🌐 Description:</strong> ${data.description}</p>
+                    <p><strong>🌍 Impact:</strong> ${data.impact}</p>
+                </div>
+            `;
+        } else {
+            document.getElementById('info').innerHTML = `
+                <h2>${name}</h2>
+                <p>Globalization data not available yet. Stay tuned!</p>
+            `;
+        }
+    }
+
+    // Add countries to map with hover effects
+     L.geoJSON(countries, {
+        onEachFeature: function (feature, layer) {
+    layer.on('click', function () {
+        showInfo(feature.properties.name);
+        layer.setStyle({
+            color: "#800080",        // purple border
+            fillColor: "#c09ac8",    // fill
+            weight: 3,
+            fillOpacity: 0.4
+        });
+    });
+
+            layer.on('mouseover', function() {
+                layer.setStyle({ color: "#a05fa0", weight: 3, fillOpacity: 0.4 });
+
+            });
+            layer.on('mouseout', function() {
+                layer.setStyle({ color: "#a05fa0", weight: 2, fillOpacity: 0.2 });
+            });
+            layer.bindTooltip(feature.properties.name, {permanent: false, direction: "center"});
+        },
+        style: {
+    color: "#800080",           // Purple border
+    fillColor: "#c09ac8",       // Softer purple fill
+    weight: 2,
+    fillOpacity: 0.3
+}
+
+    }).addTo(map);
+</script>
+
+</body>
+</html>
